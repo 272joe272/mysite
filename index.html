@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-sk="Životopis - Tvoje Meno a Priezvisko" data-en="CV - Your Name and Surname">Životopis - Tvoje Meno a Priezvisko</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #2c3e50;
+            --primary-dark-rgb: 44, 62, 80; /* RGB hodnota pre --primary-dark */
+            --primary-light-bg: #ecf0f1;
+            --accent-color: #1abc9c;
+            --accent-hover: #16a085;
+            --text-color: #34495e;
+            --light-text: #ffffff;
+            --border-color: #dfe6e9;
+            --font-headings: 'Montserrat', sans-serif;
+            --font-body: 'Open Sans', sans-serif;
+            --shadow-soft: 0 5px 15px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.1);
+            --border-radius-sm: 6px;
+            --border-radius-md: 10px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--primary-light-bg);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        section {
+            padding: 80px 30px;
+            margin-bottom: 40px;
+            background-color: var(--light-text);
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-soft);
+            text-align: center;
+        }
+        section:last-of-type {
+            margin-bottom: 0;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-headings);
+            font-weight: 700;
+            margin-top: 0;
+            color: var(--primary-dark);
+        }
+
+        section h2 {
+            color: var(--primary-dark); 
+            margin-bottom: 40px; 
+            font-size: 2.5em; 
+            position: relative;
+            display: inline-block; 
+            padding-bottom: 10px;
+        }
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        p {
+            margin-bottom: 1.2em;
+        }
+
+        /* --- Navigácia --- */
+        nav {
+            /* background-color: var(--primary-dark); */ /* Pôvodné */
+            background-color: rgba(var(--primary-dark-rgb), 0.85); /* NOVÉ: Použitie RGB premennej s alpha */
+            -webkit-backdrop-filter: blur(8px); 
+            backdrop-filter: blur(8px);        
+            padding: 15px 30px;
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2); 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center; 
+            order: 3; 
+            flex-basis: 100%; 
+        }
+        @media (min-width: 769px) {
+            nav ul {
+                order: 2; 
+                flex-basis: auto; 
+                margin-left: auto; 
+                margin-right: 15px; 
+            }
+        }
+        nav ul li {
+            margin: 0 10px; 
+        }
+        nav a {
+            text-decoration: none;
+            color: var(--light-text);
+            font-weight: 600; 
+            font-size: 1em; 
+            padding: 8px 12px; 
+            border-radius: var(--border-radius-sm);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-shadow: 0 0 3px rgba(0,0,0,0.3); /* Jemný tieň pre lepšiu čitateľnosť na priehľadnom pozadí */
+        }
+        nav a:hover, nav a.active-link {
+            background-color: var(--accent-color);
+            color: var(--light-text);
+            text-shadow: none; /* Odstrániť tieň pri hover, ak má pozadie */
+        }
+
+        .menu-toggle {
+            display: none; 
+            flex-direction: column;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            order: 1; 
+        }
+        .menu-toggle .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 4px auto;
+            background-color: var(--light-text); 
+            border-radius: 1px; 
+            transition: all 0.3s ease-in-out;
+             box-shadow: 0 0 2px rgba(0,0,0,0.5); /* Jemný tieň pre lepšiu viditeľnosť čiarok */
+        }
+
+        .lang-button {
+            background-color: transparent; 
+            color: var(--light-text);
+            border: 1px solid var(--light-text); 
+            padding: 6px 10px; 
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85em; 
+            font-family: var(--font-headings);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-left: 15px; 
+            order: 3; 
+            text-shadow: 0 0 3px rgba(0,0,0,0.3); /* Jemný tieň pre lepšiu čitateľnosť */
+        }
+        .lang-button:hover {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: var(--light-text);
+            text-shadow: none;
+        }
+        @media (min-width: 769px) {
+            .lang-button {
+                order: 3; 
+                margin-left: 15px; 
+            }
+        }
+
+        #profile-picture {
+            width: 150px; 
+            height: 150px; 
+            border-radius: 50%;  
+            object-fit: cover; 
+            margin-bottom: 25px; 
+            border: 4px solid var(--accent-color); 
+            box-shadow: var(--shadow-soft); 
+        }
+
+        #home {
+            background: linear-gradient(45deg, var(--primary-dark), #34495e); 
+            color: var(--light-text);
+            padding: 100px 30px; 
+            text-align: center;
+            border-radius: 0; 
+            box-shadow: none;
+            margin-bottom: 40px;
+            min-height: 60vh; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #home h1 {
+            font-size: 3.2em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--light-text); 
+        }
+        #home p {
+            font-size: 1.3em;
+            color: var(--accent-color); 
+            font-weight: 600;
+            max-width: 700px; 
+        }
+
+        .card {
+            text-align: left;
+            margin-bottom: 30px;
+            padding: 30px;
+            border: 1px solid var(--border-color); 
+            border-radius: var(--border-radius-md);
+            background-color: var(--light-text); 
+            box-shadow: var(--shadow-soft); 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px); 
+            box-shadow: var(--shadow-medium); 
+        }
+        .card:last-child {
+            margin-bottom: 0;
+        }
+        .card h3 {
+            color: var(--accent-color); 
+            margin-top: 0;
+            margin-bottom: 15px; 
+            font-size: 1.4em;
+        }
+        .card p {
+            margin-bottom: 10px;
+            color: #555; 
+        }
+        .card ul {
+            padding-left: 20px;
+            list-style-type: none; 
+            margin-top: 15px;
+        }
+        .card ul li {
+            margin-bottom: 10px;
+            color: #555;
+            position: relative; 
+            padding-left: 20px; 
+        }
+        .card ul li::before {
+            content: '\2713'; 
+            position: absolute;
+            left: 0;
+            top: 1px;
+            color: var(--accent-color); 
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .skills-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px; 
+            margin-top: 30px;
+        }
+        .skills-list li {
+            background-color: transparent; 
+            color: var(--accent-color); 
+            padding: 10px 20px;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.95em; 
+            font-weight: 600;
+            border: 2px solid var(--accent-color); 
+            transition: background-color 0.3s ease, color 0.3s ease;
+            cursor: default; 
+        }
+        .skills-list li:hover {
+            background-color: var(--accent-color); 
+            color: var(--light-text); 
+        }
+
+        .contact-form {
+            max-width: 700px; 
+            margin: 40px auto 0;
+            text-align: left;
+        }
+        .contact-form div {
+            margin-bottom: 25px; 
+        }
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px; 
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            box-sizing: border-box;
+            font-size: 1em;
+            font-family: var(--font-body);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .contact-form input[type="text"]:focus,
+        .contact-form input[type="email"]:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(var(--accent-color-rgb, 26, 188, 156), 0.2); /* Použitie RGB pre glow efekt */
+        }
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        .contact-form button {
+            background-color: var(--accent-color);
+            color: var(--light-text);
+            padding: 15px 30px;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            font-family: var(--font-headings);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .contact-form button:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px); 
+        }
+        #contact p {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        #contact p strong {
+            color: var(--primary-dark);
+        }
+        #contact a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        #contact a:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: var(--primary-dark);
+            color: rgba(255, 255, 255, 0.8); 
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9em;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 992px) {
+            section { padding: 60px 20px; }
+            #home { padding: 80px 20px; min-height: 50vh; }
+            #home h1 { font-size: 2.8em; }
+            #home p { font-size: 1.2em; }
+            #profile-picture { width: 120px; height: 120px; margin-bottom: 20px; }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none; 
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 100%; 
+                left: 0;
+                /* background-color: var(--primary-dark); */ /* Pôvodné */
+                background-color: rgba(var(--primary-dark-rgb), 0.9); /* NOVÉ */
+                -webkit-backdrop-filter: blur(8px);
+                backdrop-filter: blur(8px);
+                padding: 10px 0;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                order: 3; 
+            }
+            nav ul.active { display: flex; }
+            .menu-toggle { display: flex; order: 1; }
+            .lang-button { order: 2; margin-left: auto; }
+            nav ul li { text-align: center; margin: 10px 0; }
+            nav a { padding: 12px; display: block; }
+            nav ul li a:hover { background-color: var(--accent-color); text-shadow: none; }
+            .menu-toggle.active .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
+            .menu-toggle.active .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+            section { padding: 50px 15px; margin-bottom: 30px; }
+            section h2 { font-size: 2.1em; }
+            #home { padding: 60px 15px; min-height: auto; }
+            #home h1 { font-size: 2.4em; }
+            #home p { font-size: 1.1em; }
+            .skills-list { gap: 10px; }
+            .skills-list li { padding: 8px 15px; font-size: 0.9em; }
+            .card { padding: 20px; }
+            .card h3 { font-size: 1.3em; }
+            #profile-picture { width: 100px; height: 100px; margin-bottom: 15px; }
+        }
+
+        @media (max-width: 480px) {
+            body { line-height: 1.6; }
+            #home h1 { font-size: 2em; }
+            #home p { font-size: 1em; }
+            section h2 { font-size: 1.9em; }
+            .skills-list li { font-size: 0.85em; padding: 7px 12px; }
+            .card h3 { font-size: 1.2em; }
+            .contact-form { margin-top: 30px; }
+            .contact-form button { padding: 12px 25px; font-size: 1em; }
+            footer { padding: 20px; font-size: 0.85em; }
+            .lang-button { font-size: 0.8em; padding: 5px 8px; }
+            #profile-picture { width: 90px; height: 90px; }
+            #home { padding-top: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <button class="menu-toggle" id="mobile-menu" aria-label="Menu" aria-expanded="false">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <button id="lang-toggle" class="lang-button" data-lang="sk">EN</button>
+        <ul id="nav-links">
+            <li><a href="#home" data-sk="Úvod" data-en="Home">Úvod</a></li>
+            <li><a href="#about" data-sk="O mne" data-en="About Me">O mne</a></li>
+            <li><a href="#experience" data-sk="Skúsenosti" data-en="Experience">Skúsenosti</a></li>
+            <li><a href="#education" data-sk="Vzdelanie" data-en="Education">Vzdelanie</a></li>
+            <li><a href="#skills" data-sk="Zručnosti" data-en="Skills">Zručnosti</a></li>
+            <li><a href="#portfolio" data-sk="Portfólio" data-en="Portfolio">Portfólio</a></li>
+            <li><a href="#contact" data-sk="Kontakt" data-en="Contact">Kontakt</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <img src="batman.png" alt="Profilová fotka" id="profile-picture">
+        <h1 data-sk="Tvoje Meno a Priezvisko" data-en="Your Name and Surname">Tvoje Meno a Priezvisko</h1>
+        <p data-sk="Skúsený Senior Application Administrator L3 s vášňou pre IT a automatizáciu."
+           data-en="Experienced Senior Application Administrator L3 with a passion for IT and automation.">Skúsený Senior Application Administrator L3 s vášňou pre IT a automatizáciu.</p>
+    </section>
+
+    <section id="about">
+        <h2 data-sk="O mne" data-en="About Me">O mne</h2>
+        <p data-sk="Dynamický a vysoko motivovaný Senior Application Administrator L3 s viac ako sedemročnou preukázateľnou praxou v oblasti informačných technológií v spoločnosti Diebold Nixdorf, poprednom svetovom poskytovateľovi riešení prepojeného obchodu. S hlbokou vášňou pre IT a neustálou snahou o rozvoj odborných znalostí v širokom spektre technológií, vrátane Linuxu, Windows, Cisco, backendových a frontendových systémov."
+           data-en="Dynamic and highly motivated Senior Application Administrator L3 with over seven years of proven experience in information technology at Diebold Nixdorf, a leading global provider of connected commerce solutions. With a deep passion for IT and a continuous drive to develop expertise across a wide range of technologies, including Linux, Windows, Cisco, backend, and frontend systems.">Dynamický a vysoko motivovaný Senior Application Administrator L3 s viac ako sedemročnou preukázateľnou praxou v oblasti informačných technológií v spoločnosti Diebold Nixdorf, poprednom svetovom poskytovateľovi riešení prepojeného obchodu. S hlbokou vášňou pre IT a neustálou snahou o rozvoj odborných znalostí v širokom spektre technológií, vrátane Linuxu, Windows, Cisco, backendových a frontendových systémov.</p>
+        <p data-sk="V rámci svojej aktuálnej pozície zastávam kľúčovú rolu v zabezpečení a plynulej prevádzke monitorovacej platformy a jej komponentov. Aktívne využívam platformu Rapid7 InsightVM Cybersecurity na proaktívne riadenie zraniteľností v spolupráci s vývojárskymi tímami a zabezpečujem efektívne spracovanie bezpečnostných auditov a reportov. Moja expertíza zahŕňa aj rozsiahle skúsenosti s automatizáciou rutinných úloh prostredníctvom stoviek vytvorených Bash skriptov."
+           data-en="In my current role, I play a key part in ensuring the security and smooth operation of the monitoring platform and its components. I actively utilize the Rapid7 InsightVM Cybersecurity platform for proactive vulnerability management in collaboration with development teams and ensure the effective processing of security audits and reports. My expertise also includes extensive experience in automating routine tasks through hundreds of created Bash scripts.">V rámci svojej aktuálnej pozície zastávam kľúčovú rolu v zabezpečení a plynulej prevádzke monitorovacej platformy a jej komponentov. Aktívne využívam platformu Rapid7 InsightVM Cybersecurity na proaktívne riadenie zraniteľností v spolupráci s vývojárskymi tímami a zabezpečujem efektívne spracovanie bezpečnostných auditov a reportov. Moja expertíza zahŕňa aj rozsiahle skúsenosti s automatizáciou rutinných úloh prostredníctvom stoviek vytvorených Bash skriptov.</p>
+        <p data-sk="Okrem toho sa špecializujem na prevádzku a údržbu webových aplikácií na platforme Linux, administráciu middleware aplikácií a efektívnu komunikáciu s externými dodávateľmi pri riešení komplexných technických výziev. Som orientovaný na tímovú spoluprácu, vynikám v efektívnej komunikácii a preukazujem silné analytické a riešiteľské schopnosti s cieľom dosahovať vysokú úroveň kvality a spokojnosti zákazníka."
+           data-en="Additionally, I specialize in the operation and maintenance of web applications on the Linux platform, administration of middleware applications, and effective communication with external suppliers when addressing complex technical challenges. I am team-oriented, excel in effective communication, and demonstrate strong analytical and problem-solving skills with the aim of achieving a high level of quality and customer satisfaction.">Okrem toho sa špecializujem na prevádzku a údržbu webových aplikácií na platforme Linux, administráciu middleware aplikácií a efektívnu komunikáciu s externými dodávateľmi pri riešení komplexných technických výziev. Som orientovaný na tímovú spoluprácu, vynikám v efektívnej komunikácii a preukazujem silné analytické a riešiteľské schopnosti s cieľom dosahovať vysokú úroveň kvality a spokojnosti zákazníka.</p>
+    </section>
+
+    <section id="experience">
+        <h2 data-sk="Skúsenosti" data-en="Experience">Skúsenosti</h2>
+        <div class="card">
+            <h3 data-sk="Senior application administrator - 3rd level"
+                data-en="Senior Application Administrator - 3rd Level">Senior application administrator - 3rd level</h3>
+            <p><strong data-sk="Spoločnosť:" data-en="Company:">Spoločnosť:</strong> Diebold Nixdorf</p>
+            <p><strong data-sk="Obdobie:" data-en="Period:">Obdobie:</strong> <span data-sk="Odkedy - Súčasnosť" data-en="Start Date - Present">Odkedy - Súčasnosť</span></p>
+            <ul>
+                <li data-sk="Zodpovednosť za bezpečnosť a prevádzku monitorovacej platformy a jej komponentov."
+                    data-en="Responsibility for the security and operation of the monitoring platform and its components.">Zodpovednosť za bezpečnosť a prevádzku monitorovacej platformy a jej komponentov.</li>
+                <li data-sk="Používanie Rapid7 InsightVM Cybersecurity platformy a spolupráca s vývojármi na riešení zraniteľností."
+                    data-en="Using the Rapid7 InsightVM Cybersecurity platform and collaborating with developers to resolve vulnerabilities.">Používanie Rapid7 InsightVM Cybersecurity platformy a spolupráca s vývojármi na riešení zraniteľností.</li>
+                <li data-sk="Vytvorenie stoviek Bash skriptov pre automatizáciu reportov a nasadzovania softvéru."
+                    data-en="Creation of hundreds of Bash scripts for automating reports and software deployments.">Vytvorenie stoviek Bash skriptov pre automatizáciu reportov a nasadzovania softvéru.</li>
+                <li data-sk="Skúsenosti v oblastiach bankovníctva, petrochemického priemyslu, žurnalistiky, správy hotovosti a monitorovacích platforiem."
+                    data-en="Experience in banking, petrochemical industry, journalism, cash management, and monitoring platforms.">Skúsenosti v oblastiach bankovníctva, petrochemického priemyslu, žurnalistiky, správy hotovosti a monitorovacích platforiem.</li>
+                <li data-sk="Prevádzka a údržba webových aplikácií na platforme Linux."
+                    data-en="Operation and maintenance of web applications on the Linux platform.">Prevádzka a údržba webových aplikácií na platforme Linux.</li>
+                <li data-sk="Administrácia backendových, frontendových a middleware aplikácií (Kafka, ActiveMQ, Apache WS, Tomcat, JBoss/Wildfly)."
+                    data-en="Administration of backend, frontend, and middleware applications (Kafka, ActiveMQ, Apache WS, Tomcat, JBoss/Wildfly).">Administrácia backendových, frontendových a middleware aplikácií (Kafka, ActiveMQ, Apache WS, Tomcat, JBoss/Wildfly).</li>
+                <li data-sk="Riešenie incidentov, zmien a problémov pre aplikácie a aplikačné servery."
+                    data-en="Resolving incidents, changes, and problems for applications and application servers.">Riešenie incidentov, zmien a problémov pre aplikácie a aplikačné servery.</li>
+                <li data-sk="Aktívna účasť na projektoch zameraných na zlepšovanie služieb (CSI)."
+                    data-en="Active participation in projects focused on service improvement (CSI).">Aktívna účasť na projektoch zameraných na zlepšovanie služieb (CSI).</li>
+                <li data-sk="Efektívna komunikácia a tímová práca."
+                    data-en="Effective communication and teamwork.">Efektívna komunikácia a tímová práca.</li>
+                <li data-sk="Riadenie životného cyklu softvéru, monitorovanie KPI distribúcie softvéru, tvorba dokumentácie a podpora juniorov."
+                    data-en="Software lifecycle management, monitoring software distribution KPIs, documentation creation, and junior support.">Riadenie životného cyklu softvéru, monitorovanie KPI distribúcie softvéru, tvorba dokumentácie a podpora juniorov.</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3 data-sk="OS Administration for UNIX platform : Oracle Solaris 11"
+                data-en="OS Administration for UNIX platform: Oracle Solaris 11">OS Administration for UNIX platform : Oracle Solaris 11</h3>
+            <p><strong data-sk="Spoločnosť:" data-en="Company:">Spoločnosť:</strong> <span data-sk="Predošlá spoločnosť" data-en="Previous Company">Predošlá spoločnosť</span></p>
+            <p><strong data-sk="Obdobie:" data-en="Period:">Obdobie:</strong> <span data-sk="Odkedy - Dokedy" data-en="Start Date - End Date">Odkedy - Dokedy</span></p>
+            <ul>
+                <li data-sk="Administrácia operačného systému Oracle Solaris 11."
+                    data-en="Administration of the Oracle Solaris 11 operating system.">Administrácia operačného systému Oracle Solaris 11.</li>
+                <li data-sk="Skúsenosti s ITSM nástrojmi a procesmi (INM, CHM, SR, PM)."
+                    data-en="Experience with ITSM tools and processes (INM, CHM, SR, PM).">Skúsenosti s ITSM nástrojmi a procesmi (INM, CHM, SR, PM).</li>
+                <li data-sk="Monitorovanie KPI." data-en="KPI monitoring.">Monitorovanie KPI.</li>
+                <li data-sk="Efektívna komunikácia a tímová práca." data-en="Effective communication and teamwork.">Efektívna komunikácia a tímová práca.</li>
+                <li data-sk="Inštalácia, údržba fyzických a virtuálnych systémov."
+                    data-en="Installation and maintenance of physical and virtual systems.">Inštalácia, údržba fyzických a virtuálnych systémov.</li>
+                <li data-sk="Spolupráca s dodávateľom Oracle pri riešení komplexných problémov."
+                    data-en="Collaboration with the Oracle vendor in resolving complex issues.">Spolupráca s dodávateľom Oracle pri riešení komplexných problémov.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="education">
+        <h2 data-sk="Vzdelanie" data-en="Education">Vzdelanie</h2>
+        <div class="card">
+            <h3 data-sk="Duálne vzdelávanie Košice" data-en="Dual Education Kosice">Duálne vzdelávanie Košice</h3>
+            <p><strong data-sk="Odbor:" data-en="Field of Study:">Odbor:</strong> <span data-sk="Správa rôznych systémov v rámci IT" data-en="Administration of various IT systems">Správa rôznych systémov v rámci IT</span></p>
+            <p><strong data-sk="Obdobie:" data-en="Period:">Obdobie:</strong> <span data-sk="Rok - Rok" data-en="Year - Year">Rok - Rok</span></p>
+            <p data-sk="Duálne vzdelávanie zamerané na praktickú správu a údržbu rôznych IT systémov, poskytujúce teoretické znalosti a praktické skúsenosti priamo v reálnom pracovnom prostredí."
+               data-en="Dual education focused on the practical administration and maintenance of various IT systems, providing theoretical knowledge and practical experience directly in a real work environment.">Duálne vzdelávanie zamerané na praktickú správu a údržbu rôznych IT systémov, poskytujúce teoretické znalosti a praktické skúsenosti priamo v reálnom pracovnom prostredí.</p>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2 data-sk="Zručnosti" data-en="Skills">Zručnosti</h2>
+        <ul class="skills-list">
+            <li data-sk="Linux" data-en="Linux">Linux</li>
+            <li data-sk="Webové aplikácie" data-en="Web Applications">Webové aplikácie</li>
+            <li data-sk="Správa aplikácií na Linuxe" data-en="Linux Application Management">Správa aplikácií na Linuxe</li>
+            <li data-sk="Oracle SQL" data-en="Oracle SQL">Oracle SQL</li>
+            <li data-sk="Ansible" data-en="Ansible">Ansible</li>
+            <li data-sk="Bash Scripting" data-en="Bash Scripting">Bash Scripting</li>
+            <li data-sk="Cybersecurity" data-en="Cybersecurity">Cybersecurity</li>
+            <li data-sk="Middleware (Kafka, ActiveMQ)" data-en="Middleware (Kafka, ActiveMQ)">Middleware (Kafka, ActiveMQ)</li>
+            <li data-sk="Web Servers (Apache, Tomcat)" data-en="Web Servers (Apache, Tomcat)">Web Servers (Apache, Tomcat)</li>
+            <li data-sk="Komunikatívnosť" data-en="Communication Skills">Komunikatívnosť</li>
+            <li data-sk="Analytické myslenie" data-en="Analytical Thinking">Analytické myslenie</li>
+            <li data-sk="Tímová práca" data-en="Teamwork">Tímová práca</li>
+        </ul>
+    </section>
+
+    <section id="portfolio">
+        <h2 data-sk="Portfólio" data-en="Portfolio">Portfólio</h2>
+        <div class="card">
+            <h3 data-sk="Automatizačné Skripty" data-en="Automation Scripts">Automatizačné Skripty</h3>
+            <p data-sk="Moje rozsiahle skúsenosti zahŕňajú vývoj a implementáciu stoviek Bash skriptov pre automatizáciu rôznorodých úloh. Tieto skripty významne prispeli k zefektívneniu procesov, minimalizácii manuálnych zásahov a zvýšeniu celkovej efektivity v rôznych pracovných prostrediach."
+               data-en="My extensive experience includes the development and implementation of hundreds of Bash scripts for automating diverse tasks. These scripts have significantly contributed to streamlining processes, minimizing manual interventions, and increasing overall efficiency in various work environments.">Moje rozsiahle skúsenosti zahŕňajú vývoj a implementáciu stoviek Bash skriptov pre automatizáciu rôznorodých úloh. Tieto skripty významne prispeli k zefektívneniu procesov, minimalizácii manuálnych zásahov a zvýšeniu celkovej efektivity v rôznych pracovných prostrediach.</p>
+            <p data-sk="Medzi moje kľúčové oblasti v rámci automatizácie patria:"
+               data-en="My key areas within automation include:">Medzi moje kľúčové oblasti v rámci automatizácie patria:</p>
+            <ul>
+                <li data-sk="Automatizácia reportingu a analýz" data-en="Automation of reporting and analysis">Automatizácia reportingu a analýz</li>
+                <li data-sk="Automatizácia nasadzovania softvéru a konfigurácií" data-en="Automation of software deployment and configuration">Automatizácia nasadzovania softvéru a konfigurácií</li>
+                <li data-sk="Optimalizácia a automatizácia prevádzkových úloh" data-en="Optimization and automation of operational tasks">Optimalizácia a automatizácia prevádzkových úloh</li>
+                <li data-sk="Skriptovanie pre monitoring a alerting" data-en="Scripting for monitoring and alerting">Skriptovanie pre monitoring a alerting</li>
+            </ul>
+            <p data-sk="Tieto skúsenosti s automatizáciou a vývojom skriptov preukazujú moju schopnosť identifikovať opakujúce sa úlohy a implementovať efektívne riešenia, ktoré vedú k zlepšeniu produktivity a spoľahlivosti systémov."
+               data-en="This experience with automation and script development demonstrates my ability to identify repetitive tasks and implement effective solutions that lead to improved productivity and system reliability.">Tieto skúsenosti s automatizáciou a vývojom skriptov preukazujú moju schopnosť identifikovať opakujúce sa úlohy a implementovať efektívne riešenia, ktoré vedú k zlepšeniu produktivity a spoľahlivosti systémov.</p>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 data-sk="Kontakt" data-en="Contact">Kontakt</h2>
+        <p data-sk="Máte záujem o spoluprácu alebo sa chcete len porozprávať? Neváhajte ma kontaktovať!"
+           data-en="Interested in collaborating or just want to chat? Feel free to contact me!">Máte záujem o spoluprácu alebo sa chcete len porozprávať? Neváhajte ma kontaktovať!</p>
+        <div style="margin-bottom: 30px; text-align: center;">
+            <p style="margin-bottom: 5px;"><strong data-sk="E-mail:" data-en="Email:">E-mail:</strong> <a href="mailto:[Tvoja e-mailová adresa]">[Tvoja e-mailová adresa]</a></p>
+            <p style="margin-bottom: 5px;"><strong data-sk="LinkedIn:" data-en="LinkedIn:">LinkedIn:</strong> <a href="[Odkaz na tvoj LinkedIn profil]" target="_blank">[Odkaz na tvoj LinkedIn profil]</a></p>
+            <p><strong data-sk="GitHub:" data-en="GitHub:">GitHub:</strong> <a href="[Odkaz na tvoj GitHub profil]" target="_blank">[Odkaz na tvoj GitHub profil]</a></p>
+        </div>
+        <div class="contact-form">
+            <form action="#" method="post">
+                <div>
+                    <label for="name" data-sk="Meno:" data-en="Name:">Meno:</label>
+                    <input type="text" id="name" name="name" required
+                           data-placeholder-sk="Vaše meno" data-placeholder-en="Your name" placeholder="Vaše meno">
+                </div>
+                <div>
+                    <label for="email" data-sk="E-mail:" data-en="Email:">E-mail:</label>
+                    <input type="email" id="email" name="email" required
+                           data-placeholder-sk="Vaša e-mailová adresa" data-placeholder-en="Your email address" placeholder="Vaša e-mailová adresa">
+                </div>
+                <div>
+                    <label for="message" data-sk="Správa:" data-en="Message:">Správa:</label>
+                    <textarea id="message" name="message" rows="6" required
+                              data-placeholder-sk="Vaša správa..." data-placeholder-en="Your message..." placeholder="Vaša správa..."></textarea>
+                </div>
+                <button type="submit" data-sk="Odoslať správu" data-en="Send Message">Odoslať správu</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p data-sk="© 2025 Tvoje Meno a Priezvisko. Vytvorené s vášňou pre kód."
+           data-en="© 2025 Your Name and Surname. Created with a passion for code.">&copy; 2025 Tvoje Meno a Priezvisko. Vytvorené s vášňou pre kód.</p>
+    </footer>
+
+    <script>
+        // --- JavaScript pre Hamburger Menu ---
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+            const isExpanded = navLinks.classList.contains('active');
+            menuToggle.setAttribute('aria-expanded', isExpanded);
+        });
+
+        // --- Zatvorenie menu po kliknutí na odkaz + Plynulé skrolovanie ---
+        document.querySelectorAll('#nav-links a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+                if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        let navHeight = 0;
+                        const navElement = document.querySelector('nav');
+                        if (navElement) navHeight = navElement.offsetHeight;
+                        if (navHeight === 0) {
+                            console.warn("Navigation height is 0, using fallback value for scroll offset.");
+                            navHeight = 60; 
+                        }
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight - 10; 
+                        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        // --- KÓD PRE PREPÍNANIE JAZYKOV ---
+        const langToggleButton = document.getElementById('lang-toggle');
+        const translatableElements = document.querySelectorAll('[data-sk][data-en]:not(title)');
+        const titleElement = document.querySelector('title[data-sk][data-en]');
+        const translatablePlaceholders = document.querySelectorAll('[data-placeholder-sk][data-placeholder-en]');
+
+        function switchLanguage(targetLang) {
+            translatableElements.forEach(element => {
+                const text = element.getAttribute(`data-${targetLang}`);
+                if (text !== null) element.innerText = text;
+            });
+            if (titleElement) {
+                const titleText = titleElement.getAttribute(`data-${targetLang}`);
+                if (titleText !== null) document.title = titleText;
+            }
+            translatablePlaceholders.forEach(element => {
+                const placeholderText = element.getAttribute(`data-placeholder-${targetLang}`);
+                if (placeholderText !== null) element.setAttribute('placeholder', placeholderText);
+            });
+            langToggleButton.setAttribute('data-lang', targetLang);
+            localStorage.setItem('preferredLanguage', targetLang); 
+            if (targetLang === 'sk') {
+                langToggleButton.innerText = 'EN'; 
+                document.documentElement.lang = 'sk'; 
+            } else {
+                langToggleButton.innerText = 'SK'; 
+                document.documentElement.lang = 'en'; 
+            }
+        }
+
+        langToggleButton.addEventListener('click', () => {
+            const currentLang = langToggleButton.getAttribute('data-lang');
+            const newLang = currentLang === 'sk' ? 'en' : 'sk'; 
+            switchLanguage(newLang); 
+        });
+
+        function setInitialLanguage() {
+            const savedLang = localStorage.getItem('preferredLanguage');
+            const initialLang = savedLang || 'sk';
+            if (initialLang !== 'sk') {
+                switchLanguage(initialLang);
+            } else {
+                langToggleButton.innerText = 'EN';
+                document.documentElement.lang = 'sk';
+                if (titleElement) {
+                    const titleText = titleElement.getAttribute('data-sk');
+                    if (titleText !== null) document.title = titleText;
+                }
+            }
+        }
+        document.addEventListener('DOMContentLoaded', setInitialLanguage);
+    </script>
+</body>
+</html>
